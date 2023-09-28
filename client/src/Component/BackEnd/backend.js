@@ -59,32 +59,32 @@ function Backend() {
 
   return (
     <div>
-      <h2>Backend</h2>
-      <div className="row">
+      <h2>Backend code for About Us page </h2>
+      <div className="row ">
         <div className="col-sm-6">
           <input
             type="text"
-            className="form-control"
+            className="form-control m-1"
             placeholder="Enter ID"
             value={id}
             onChange={(e) => setId(e.target.value)}
           />
         </div>
         <div className="col-sm-6">
-          <div className="btn-group">
-            <button className="btn btn-primary" onClick={handlePost}>
+          <div className="btn-group ">
+            <button className="btn btn-primary m-1" onClick={handlePost}>
               POST
             </button>
-            <button className="btn btn-primary" onClick={handleGet}>
+            <button className="btn btn-primary m-1 " onClick={handleGet}>
               GET
             </button>
-            <button className="btn btn-danger" onClick={handleDelete}>
+            <button className="btn btn-danger m-1" onClick={handleDelete}>
               DELETE
             </button>
-            <button className="btn btn-warning" onClick={handlePut}>
+            <button className="btn btn-warning m-1" onClick={handlePut}>
               PUT
             </button>
-            <button className="btn btn-success" onClick={handleUpdate}>
+            <button className="btn btn-success m-1" onClick={handleUpdate}>
               UPDATE
             </button>
           </div>
