@@ -3,21 +3,32 @@ import axios from 'axios';
 
 function Backend() {
   const [responseData, setResponseData] = useState(null);
+  const [id, setId] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [drTeamList, setDrTeamList] = useState([]);
+  const[descriptionSub1,setDescriptionSub1]=useState('')
+  const[descriptionSub2,setDescriptionSub2]=useState('')
+  const[descriptionSub3,setDescriptionSub3]=useState('')
+
+
 
   const handlePost = async () => {
-    try {
-      const response = await axios.post('http://localhost:8080/about', { data: 'Your POST data here' });
-      setResponseData(response.data);
-    } catch (error) {
-      console.error('Error making POST request:', error);
-      // You can handle errors here, e.g., set an error state or display a message.
-    }
+    // ... (unchanged)
   };
 
   const handleGet = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/about');
-      setResponseData(response.data);
+      const response = await axios.get(`http://localhost:8080/about/${id}`); // Include the ID in the URL
+      const data = response.data;
+      setResponseData(data);
+      setTitle(data.title); // Set the title in the input field
+      setDescription(data.description)
+      setDescriptionSub1(data.descriptionSub1)
+      setDescriptionSub2(data.descriptionSub2)
+      setDescriptionSub3(data.descriptionSub3); // Set the description in the input field
+      ; // Set the description in the input field
+      setDrTeamList(data.DrTeamList); // Set the DrTeamList
     } catch (error) {
       console.error('Error making GET request:', error);
       // Handle errors here.
@@ -25,28 +36,20 @@ function Backend() {
   };
 
   const handleDelete = async () => {
-    try {
-      const response = await axios.delete('http://localhost:8080/about');
-      setResponseData(response.data);
-    } catch (error) {
-      console.error('Error making DELETE request:', error);
-      // Handle errors here.
-    }
+    // ... (unchanged)
   };
 
   const handlePut = async () => {
-    try {
-      const response = await axios.put('http://localhost:8080/about', { data: 'Your PUT data here' });
-      setResponseData(response.data);
-    } catch (error) {
-      console.error('Error making PUT request:', error);
-      // Handle errors here.
-    }
+    // ... (unchanged)
   };
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch('http://localhost:8080/about', { data: 'Your PATCH data here' });
+      const response = await axios.patch(`http://localhost:8080/about/${id}`, {
+        title: title,
+        description: description,
+        DrTeamList: drTeamList, // Include any other fields you want to update
+      });
       setResponseData(response.data);
     } catch (error) {
       console.error('Error making PATCH request:', error);
@@ -57,11 +60,87 @@ function Backend() {
   return (
     <div>
       <h2>Backend</h2>
-      <button onClick={handlePost}>POST</button>
-      <button onClick={handleGet}>GET</button>
-      <button onClick={handleDelete}>DELETE</button>
-      <button onClick={handlePut}>PUT</button>
-      <button onClick={handleUpdate}>UPDATE</button>
+      <div className="row">
+        <div className="col-sm-6">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter ID"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
+        </div>
+        <div className="col-sm-6">
+          <div className="btn-group">
+            <button className="btn btn-primary" onClick={handlePost}>
+              POST
+            </button>
+            <button className="btn btn-primary" onClick={handleGet}>
+              GET
+            </button>
+            <button className="btn btn-danger" onClick={handleDelete}>
+              DELETE
+            </button>
+            <button className="btn btn-warning" onClick={handlePut}>
+              PUT
+            </button>
+            <button className="btn btn-success" onClick={handleUpdate}>
+              UPDATE
+            </button>
+          </div>
+        </div>
+      </div>
+      <br />
+      {responseData && (
+        <div>
+          <h3>Edit Data:</h3>
+          <div>
+            <label>Title:</label>
+            <input className="form-control"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>Description:</label>
+            <textarea className="form-control"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>descriptionSub1:</label>
+            <textarea className="form-control"
+              value={descriptionSub1}
+              onChange={(e) => setDescriptionSub1(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>descriptionSub2:</label>
+            <textarea className="form-control"
+              value={descriptionSub2}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          <div>
+            <label>descriptionSub3:</label>
+            <textarea className="form-control"
+              value={descriptionSub3}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+          {/* <div>
+            <label>DrTeamList:</label>
+            <input
+              type="text"
+              value={drTeamList}
+              onChange={(e) => setDrTeamList(e.target.value)}
+            />
+          </div> */}
+          {/* Add input fields for other fields here */}
+        </div>
+      )}
       {responseData && (
         <div>
           <h3>Response Data:</h3>

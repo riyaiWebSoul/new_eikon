@@ -8,11 +8,7 @@ const aboutSchema = new Schema({
         descriptionSub1:String,
         descriptionSub2:String,
         descriptionSub3:String,
-        DrTeamList:[{ Name: String,
-                Post: String,
-                description:String,
-                image:String
-        }],
+      
 name:String,
        
         
