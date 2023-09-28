@@ -19,7 +19,7 @@ const HealingTouch = require('./routes/healingTouch');
 const PatientReview = require('./routes/PatientReview');
 const DrList = require('./routes/drList');
 const ImageUploadRouter=require('./routes/imagesUpload')
-
+const PORT = process.env.PORT || 8080;
 // Connect to the MongoDB database
 async function connectToDatabase() {
   try {
@@ -106,7 +106,7 @@ async function startServer() {
   await connectToDatabase();
   await setupRoutes();
 
-  server.listen(8080, () => {
+  server.listen(PORT, () => {
     console.log('Server started on port 8080');
   });
 }
