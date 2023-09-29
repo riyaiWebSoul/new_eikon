@@ -20,7 +20,7 @@
          .then((response) => {
             const data = response.data;
             console.log(response.data);
-            setJsonData(data[1]) 
+            setJsonData(...data) 
 
          })
          .catch((error) => {
@@ -50,9 +50,9 @@
                         <div className="quality-system-left-con">
                            
                            <h2 id={jsonData._id} type="text" 
-        name="title">{jsonData.title}
+        name="title">{jsonData.SubTile}
                            </h2>
-                           <p className='mb-2'>{jsonData.description}</p>
+                           <p className='mb-2'>{jsonData.descriptionSub0}</p>
                            <p className='mb-2'>{jsonData.descriptionSub1}</p>
                            <p className='mb-2'>{jsonData.descriptionSub2}</p>
                            <p className='mb-0'>{jsonData.descriptionSub3}</p>

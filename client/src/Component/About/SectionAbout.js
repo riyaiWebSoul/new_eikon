@@ -15,7 +15,7 @@ export default function SectionAbout() {
       .then((response) => {
          const data = response.data;
          console.log(response.data);
-         setJsonData(data[0]) 
+         setJsonData(...data) 
       })
       .catch((error) => {
         console.error('Error fetching data:', error);

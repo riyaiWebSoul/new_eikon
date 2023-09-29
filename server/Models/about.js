@@ -5,11 +5,13 @@ const aboutSchema = new Schema({
    
         title: String,
         description: String,
+        SubTile:String,
+        descriptionSub0:String,
         descriptionSub1:String,
         descriptionSub2:String,
         descriptionSub3:String,
       
-name:String,
+
        
         
 
