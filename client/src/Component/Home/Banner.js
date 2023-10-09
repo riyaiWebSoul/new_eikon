@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Banner_ani2 from "../../assets/images/1(7).jpg";
 
 export default function Banner() {
   const [jsonData, setJsonData] = useState({});
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState("");
 
   useEffect(() => {
     const apiUrl = "http://localhost:8080/home/";
@@ -17,15 +16,17 @@ export default function Banner() {
         const data = response.data;
         console.log("JSON data:", data);
         setJsonData(data[0]);
+        const imageName = data[0].section.imageSrc; // Get the image name from the fetched data
+        console.log(imageName);
+        
+        // Make an HTTP GET request to fetch images
+        const imageUrl = `http://localhost:8080/imageUploads/${imageName}`;
+        setImages(imageUrl);
       })
       .catch((error) => {
         console.error("Error fetching JSON data:", error);
       });
-
-    // Make an HTTP GET request to fetch images
-    const imageUrl = "http://localhost:8080/imageUploads/1(7).jpg"; // Replace with the actual route to get images
-    setImages(imageUrl)
-  }, []);
+  }, []); // Include [] as the dependency array to run the effect only once
 
   return (
     <div>
@@ -41,17 +42,7 @@ export default function Banner() {
                       alt="banner-left-img"
                       className="img-fluid banner-left-img"
                     />
-                   
                   </figure>
-                  {/* <div className="image-container">
-                    {images.map((imageUrl, index) => (
-                      <img
-                        key={index}
-                        src={imageUrl}
-                        alt={`Image ${index}`}
-                      />
-                    ))}
-                  </div> */}
                 </div>
               </div>
               <div className="col-lg-6">

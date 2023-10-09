@@ -9,7 +9,11 @@ import ServiceMedical from './Component/Pages.js/ServiceMedical'
 import ServiceMapingEcommerce from './Component/Pages.js/ServiceMapingEcommerce'
 import AppoinmentSuccess from './Component/Pages.js/AppoinmentSuccess'
 import View from './Component/Pages.js/View'
-import BackEnd from './Component/BackEnd/backend'
+
+// import BackEndRouter from './Component/BackEnd/BackEndRouter'
+import Header from './Component/Header'
+import Footer from './Component/Footer'
+import NotFoundPage from './Component/BackEnd/NotFound'
 
 export default function Router() {
   const history = useNavigate();
@@ -22,6 +26,7 @@ export default function Router() {
 
   return (
     <div>
+      <Header/>
         <Routes>
             
                         <Route exact path='/' element={<Home/>} />
@@ -31,10 +36,11 @@ export default function Router() {
                         <Route path='/Contact' element={<Contact/>} />
                         <Route path='/thank' element={<ThankYou/>} />
                         <Route path='/success' element={<AppoinmentSuccess/>} />
-                        <Route path='/view' element={<View/>} />
-                        <Route path='/backend' element={<BackEnd/>}/>
+                        <Route path='/view' element={<View/>} />   
+                        <Route path='*' element={<NotFoundPage/>}/>            
+                        {/* <Route path='/backHome' element={  <BackEndRouter/>}/>                    */}
         </Routes>
-
+<Footer/>
     </div>
   )
 }

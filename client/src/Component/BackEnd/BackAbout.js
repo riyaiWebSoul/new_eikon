@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 
 function BackAbout() {
+  const navigate=useNavigate();
+  const handleGoBack=()=>{
+    navigate('/backHome/backendDashboard/')
+  }
   const [responseData, setResponseData] = useState(null);
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
@@ -73,34 +77,22 @@ const  openConfirmationModal=async()=>{
 
   return (
     <div className='container'>
-      <h2 className=' p-5 text-center'>Backend code for About Us page </h2>
+      <h2 className=' p-5 text-center'> About Us </h2>
       <div className="row ">
-        <div className="col-sm-6">
-          <input
-            type="text"
-            className="form-control m-1"
-            placeholder="Enter ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </div>
+        
         <div className="col-sm-6">
           <div className="btn-group ">
-            {/* <button className="btn btn-primary m-1" onClick={handlePost}>
-              POST
-            </button> */}
+            
             <button className="btn btn-primary m-1 " onClick={handleGet}>
               GET
             </button>
-            {/* <button className="btn btn-danger m-1" onClick={handleDelete}>
-              DELETE
-            </button>
-            <button className="btn btn-warning m-1" onClick={handlePut}>
-              PUT
-            </button> */}
+           
            
             <button className="btn btn-success m-1" onClick={openConfirmationModal}>
               UPDATE
+            </button>
+            <button className="btn btn-gray m-1" onClick={handleGoBack}>
+              Back
             </button>
           </div>
         </div>

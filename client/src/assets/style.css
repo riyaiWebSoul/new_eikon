@@ -1294,3 +1294,13 @@ a:hover{
 .custom-modal{
 	z-index: 1000;
 }
+.imageListStyle{
+	cursor: pointer;
+
+}
+.imageListStyle:hover{
+	background-color: red;	
+}
+.imageListStyle:focus{
+	background-color: black;	
+}

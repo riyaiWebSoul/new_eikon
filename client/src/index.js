@@ -7,12 +7,13 @@ import '../node_modules/animate.css/animate.min.css'
 import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css'
 import { BrowserRouter } from 'react-router-dom';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
     <App />
-  </BrowserRouter>
+  </BrowserRouter >
   // </React.StrictMode>
 );
 

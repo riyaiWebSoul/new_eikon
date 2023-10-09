@@ -1,56 +1,83 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function BackAppoinmentSuccess() {
-  const [responseData, setResponseData] = useState(null);
+
+function BackAppointmentSuccess() {
+ 
+  const [responseData, setResponseData] = useState([]);
   const [id, setId] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [drTeamList, setDrTeamList] = useState([]);
-  const[descriptionSub1,setDescriptionSub1]=useState('')
-  const[descriptionSub2,setDescriptionSub2]=useState('')
-  const[descriptionSub3,setDescriptionSub3]=useState('')
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [comments, setComments] = useState('');
+  const [time, setTime] = useState('');
+  const [date, setDate] = useState('');
+  const [gender, setGender] = useState('');
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+
+  useEffect(() => {
+    handleGet();
+  }, []);
 
 
 
-  const handlePost = async () => {
-    // ... (unchanged)
-  };
 
   const handleGet = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/about/${id}`); // Include the ID in the URL
+      const response = await axios.get(`http://localhost:8080/appointments`);
       const data = response.data;
       setResponseData(data);
-      setTitle(data.title); // Set the title in the input field
-      setDescription(data.description)
-      setDescriptionSub1(data.descriptionSub1)
-      setDescriptionSub2(data.descriptionSub2)
-      setDescriptionSub3(data.descriptionSub3); // Set the description in the input field
-      ; // Set the description in the input field
-      setDrTeamList(data.DrTeamList); // Set the DrTeamList
     } catch (error) {
       console.error('Error making GET request:', error);
       // Handle errors here.
     }
   };
-
-  const handleDelete = async () => {
-    // ... (unchanged)
+  const openConfirmationModal = async () => {
+    setShowConfirmationModal(true);
+  }
+  const handleDelete = async (index) => {
+    try {
+      const updatedData = [...responseData];
+      const checkId = updatedData[index]._id;
+      const checkIdString = checkId.toString();
+      console.log(checkIdString);
+  
+      const response = await axios.delete(`http://localhost:8080/appointments/${checkIdString}`);
+  
+      if (response.status === 200) {
+        // Remove the deleted item from updatedData
+        updatedData.splice(index, 1);
+        setResponseData(updatedData); // Update the state with the updated list
+      }
+    } catch (error) {
+      console.error('Error making DELETE request:', error);
+      // Handle errors here.
+    }
   };
-
-  const handlePut = async () => {
-    // ... (unchanged)
-  };
+ 
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8080/about/${id}`, {
-        title: title,
-        description: description,
-        DrTeamList: drTeamList, // Include any other fields you want to update
-      });
-      setResponseData(response.data);
+      const updatedData = [...responseData];
+      const index = updatedData.findIndex((entry) => entry._id === id);
+
+      if (index !== -1) {
+        updatedData[index] = {
+          _id: id,
+          name: userName,
+          email: email,
+          phone: phone,
+          comments: comments,
+          time: time,
+          date: date,
+          gender: gender,
+        };
+
+        setResponseData(updatedData);
+
+        // Perform the PATCH request to the server to update the corresponding entry
+        // You can use axios.patch here to update the entry on the server
+      }
     } catch (error) {
       console.error('Error making PATCH request:', error);
       // Handle errors here.
@@ -58,97 +85,110 @@ function BackAppoinmentSuccess() {
   };
 
   return (
-    <div>
-      <h2>Backend code for About Us page </h2>
-      <div className="row ">
+    <div className="container">
+      <h2 className='text-center p-5'>Booked Appointments List</h2>
+      <div className="row">
+        
         <div className="col-sm-6">
-          <input
-            type="text"
-            className="form-control m-1"
-            placeholder="Enter ID"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
-          />
-        </div>
-        <div className="col-sm-6">
-          <div className="btn-group ">
-            <button className="btn btn-primary m-1" onClick={handlePost}>
-              POST
-            </button>
-            <button className="btn btn-primary m-1 " onClick={handleGet}>
+          <div className="btn-group">
+          
+            <button className="btn btn-primary m-1" onClick={handleGet}>
               GET
             </button>
-            <button className="btn btn-danger m-1" onClick={handleDelete}>
-              DELETE
-            </button>
-            <button className="btn btn-warning m-1" onClick={handlePut}>
-              PUT
-            </button>
-            <button className="btn btn-success m-1" onClick={handleUpdate}>
-              UPDATE
-            </button>
+            
+           
           </div>
         </div>
       </div>
       <br />
-      {responseData && (
+      {responseData.length > 0 && (
         <div>
           <h3>Edit Data:</h3>
-          <div>
-            <label>Title:</label>
-            <input className="form-control"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>Description:</label>
-            <textarea className="form-control"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>descriptionSub1:</label>
-            <textarea className="form-control"
-              value={descriptionSub1}
-              onChange={(e) => setDescriptionSub1(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>descriptionSub2:</label>
-            <textarea className="form-control"
-              value={descriptionSub2}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div>
-            <label>descriptionSub3:</label>
-            <textarea className="form-control"
-              value={descriptionSub3}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          {/* <div>
-            <label>DrTeamList:</label>
-            <input
-              type="text"
-              value={drTeamList}
-              onChange={(e) => setDrTeamList(e.target.value)}
-            />
-          </div> */}
-          {/* Add input fields for other fields here */}
+          <table className="table">
+            <thead>
+              <tr>
+                {/* <th>ID</th> */}
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Comments</th>
+                <th>Time</th>
+                <th>Date</th>
+                <th>Gender</th>
+                {/* <th>Edit</th> */}
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {responseData.map((entry, index) => (
+                <tr key={index}>
+                  {/* <td>{entry._id}</td> */}
+                  <td>{index + 1}</td>
+                  <td>{entry.name}</td>
+                  <td>{entry.email}</td>
+                  <td>{entry.phone}</td>
+                  <td>{entry.comments}</td>
+                  <td>{entry.time}</td>
+                  <td>{entry.date}</td>
+                  <td>{entry.gender}</td>
+                
+                  <td>
+                    <button className="btn btn-danger" onClick={() => handleDelete(index)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          
         </div>
       )}
-      {responseData && (
         <div>
-          <h3>Response Data:</h3>
-          <pre>{JSON.stringify(responseData, null, 2)}</pre>
-        </div>
-      )}
+        {showConfirmationModal && (
+          <div className="modal fade show " style={{ display: "block" }}>
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content bg-warning">
+                <div className="modal-header">
+                  <h5 className="modal-title">Confirm Update</h5>
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={() => setShowConfirmationModal(false)}
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  Are you sure you want to update?
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => setShowConfirmationModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                      setShowConfirmationModal(false);
+                      
+                    }}
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
 
-export default BackAppoinmentSuccess;
+export default BackAppointmentSuccess;

@@ -2,10 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const App = require('./App');
 const multer = require('multer');
-
+const path = require('path');
 const server = express();
+const fs = require('fs');
+
 const HomeRouter = require('./routes/home');
 const productRouter = require('./routes/product');
 const userRouter = require('./routes/user');
@@ -18,12 +19,17 @@ const EnquiryRouter = require('./routes/enquiry');
 const HealingTouch = require('./routes/healingTouch');
 const PatientReview = require('./routes/PatientReview');
 const DrList = require('./routes/drList');
-const ImageUploadRouter=require('./routes/imagesUpload')
+const LoginIdRouter = require('./routes/loginId');
+const ImageUploadRouter = require('./routes/imagesUpload');
 const PORT = process.env.PORT || 8080;
+
 // Connect to the MongoDB database
 async function connectToDatabase() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/eikon',{ useNewUrlParser: true, useUnifiedTopology: true });
+    await mongoose.connect('mongodb://127.0.0.1:27017/eikon', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log('Database connected');
   } catch (err) {
     console.error('Error connecting to the database:', err);
@@ -37,6 +43,7 @@ server.use(morgan('default'));
 // Serve static files from the 'public' directory
 server.use(express.static('public'));
 server.use(cors());
+
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
@@ -46,20 +53,20 @@ db.once('open', () => {
 // Configure Multer for handling file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-      cb(null, 'imageUpload/'); 
+    cb(null, path.join(__dirname, 'public', 'images'));
   },
   filename: (req, file, cb) => {
-      const timestamp = Date.now();
-      const fileName = `${timestamp}-${file.originalname}`;
-      cb(null, fileName);
-  }
+    const timestamp = Date.now();
+    const fileName = `${timestamp}-${file.originalname}`;
+    cb(null, fileName);
+  },
 });
 
 const upload = multer({ storage });
 
 // Define your routes using async functions
 async function setupRoutes() {
-   server.use('/imageUploads', express.static('public/images'));
+  server.use('/imageUploads', express.static('public/images'));
   server.use('/products', productRouter.router);
   server.use('/user', userRouter.router);
   server.use('/about', AboutRouter.router);
@@ -72,34 +79,76 @@ async function setupRoutes() {
   server.use('/healingTouch', HealingTouch.router);
   server.use('/PatientReview', PatientReview.router);
   server.use('/drList', DrList.router);
-  server.use('/imageUpload',ImageUploadRouter.router);
-  // server.use('/imageUpload', express.static('./imageUpload'));
+  server.use('/imageUpload', ImageUploadRouter.router);
+  server.use('/loginId', LoginIdRouter.router);
+  server.use('/images', express.static('public/images'));
 }
 
 const imageUrls = [];
 
-server.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+server.get('/listImages', (req, res) => {
+  const imageDir = path.join(__dirname, 'public', 'images');
+
+  // Use the 'fs' module to read the contents of the directory
+  fs.readdir(imageDir, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error reading images directory' });
+    }
+
+    // Filter out only image files (you can adjust this filter as needed)
+    const imageFiles = files.filter((file) => {
+      const extname = path.extname(file);
+      return ['.jpg', '.jpeg', '.png', '.gif'].includes(extname.toLowerCase());
+    });
+
+    // Create an array of image URLs
+    const imageUrls = imageFiles.map((file) => `/${file}`);
+
+    res.json({ images: imageUrls });
+  });
 });
 
-server.post('/upload',ImageUploadRouter.router, upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
-  }
+
+  server.post('/imageUpload', upload.single('image'), (req, res) => {
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
 
   // Get the image name from the uploaded file's filename
   const imageName = req.file.filename;
-
+console.log(imageName)
   // Add the image name to the imageUrls array
   imageUrls.push(imageName);
 
   // You can send back the updated imageUrls array as a response
-  res.json(imageUrls);
+  res.json({ imageUrl: `/${imageName}` });
 
   // You can do further processing with the uploaded file here
   // For now, just send a success response
   res.send('File uploaded successfully.');
+}
+);
+
+server.delete('/deleteImage/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const imagePath = path.join(__dirname, 'public', 'images', filename);
+
+  // Use the 'fs' module to delete the image file
+  fs.unlink(imagePath, (err) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error deleting image' });
+    }
+
+    // Remove the deleted image URL from your 'imageUrls' array if needed
+    const index = imageUrls.indexOf(`/images/${filename}`);
+    if (index !== -1) {
+      imageUrls.splice(index, 1);
+    }
+
+    res.json({ message: 'Image deleted successfully' });
+  });
 });
+
 
 // Start the server on port 8080
 async function startServer() {
@@ -107,7 +156,7 @@ async function startServer() {
   await setupRoutes();
 
   server.listen(PORT, () => {
-    console.log('Server started on port 8080');
+    console.log(`Server started on port ${PORT}`);
   });
 }
 

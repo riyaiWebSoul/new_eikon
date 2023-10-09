@@ -55,7 +55,7 @@ export default function Footer() {
                      </div>
                      <div className="col-lg-2 col-md-6 col-sm-12">
                         <div className="weight-footer-content">
-                           <h5>{jsonData.section?.title}</h5>
+                           <h5>Important Link</h5>
                            
                            <ul className="list-unstyled mb-0">
                    
@@ -84,7 +84,7 @@ export default function Footer() {
                      </div>
                      <div className="col-lg-4 col-md-6 col-sm-5 col-12">
                         <div className="weight-footer-content">
-                           <h5>{jsonData.section?.title}</h5>
+                           <h5>Contact Us</h5>
                            <ul className="list-unstyled mb-0">
                               <li ><Link to="mailto:hemant.borse@eikonimaging.ai" target='_blank'><span>Email: </span>{jsonData.section?.email}</Link></li>
                               <li><Link to="tel:96543 70277" target='_blank'><span>Phone: </span>+91 {jsonData.section?.phone}</Link></li>

@@ -1,16 +1,31 @@
-// src/components/LoginForm.js
+// BackHome.js
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 const BackHome = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate('/backHome/backEndDashboard')
-    // You can handle form submission logic here, e.g., making an API request to validate the user's credentials.
+
+    try {
+      const response = await axios.get(`http://localhost:8080/loginId`);
+      const data = response.data;
+
+      if (data.length > 0 && password === data[0].password && email === data[0].email) {
+        navigate('/backHome/backEndDashboard');
+      } else {
+        setErrorMessage('Wrong email or password. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error making GET request:', error);
+      setErrorMessage('An error occurred. Please try again later.');
+    }
   };
 
   return (
@@ -18,6 +33,7 @@ const BackHome = () => {
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h2 className="mt-5 mb-4">Login</h2>
+          {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>

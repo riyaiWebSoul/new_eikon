@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function BackPatientReviews() {
   // State for API response, patient data, confirmation modal, and editing index
+  const navigate=useNavigate();
+  const handleGoBack=()=>{
+    navigate('/backHome/backendDashboard/')
+  }
   const [responseData, setResponseData] = useState(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -146,25 +152,10 @@ function BackPatientReviews() {
 
   return (
     <div className="container">
-      <h2>Backend code for Patient Review</h2>
+      <h2 className="p-5 text-center">Patient Review</h2>
       <div className="row ">
         {/* Input field for ID */}
-        <div className="col-sm-6">
-          <input
-            type="text"
-            className="form-control m-1"
-            placeholder="Enter on Get Button to get API"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            type="text"
-            className="form-control m-1"
-            placeholder="Enter on Get Button"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
+       
         <div className="col-sm-6">
           <div className="btn-group ">
             {/* Button to trigger GET request */}
@@ -184,10 +175,28 @@ function BackPatientReviews() {
             >
               New
             </button>
+            <button className="btn btn-gray m-1" onClick={handleGoBack}>
+              Back
+            </button>
           </div>
         </div>
       </div>
-
+      <div className="col-sm-6 mt-lg-5">
+          <input
+            type="text"
+            className="form-control m-1"
+            placeholder="Enter on Get Button to get API"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="text"
+            className="form-control m-1"
+            placeholder="Enter on Get Button"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
       {/* Display existing patients and provide a way to edit and delete them */}
       <div>
         <h3>Existing Patients:</h3>
