@@ -1,8 +1,8 @@
 const express = require('express');
-const morgan = require('morgan');
+ 
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
+ 
 const path = require('path');
 const server = express();
 const fs = require('fs');
@@ -20,7 +20,9 @@ const HealingTouch = require('./routes/healingTouch');
 const PatientReview = require('./routes/PatientReview');
 const DrList = require('./routes/drList');
 const LoginIdRouter = require('./routes/loginId');
+const bodyParser = require('body-parser');
 const ImageUploadRouter = require('./routes/imagesUpload');
+const fileUpload = require('express-fileupload');
 const PORT = process.env.PORT || 8080;
 
 // Connect to the MongoDB database
@@ -37,8 +39,8 @@ async function connectToDatabase() {
 }
 
 // Middleware to parse JSON request bodies
-server.use(express.json());
-server.use(morgan('default'));
+  server.use(express.json());
+   server.use(bodyParser.json());
 
 // Serve static files from the 'public' directory
 server.use(express.static('public'));
@@ -50,22 +52,19 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Configure Multer for handling file uploads
- 
-server.use(cors({
-  origin: ["http://localhost:8080/"], // Add your actual frontend domain(s)
-  methods: ["POST", "GET"],
-  credentials: true,
-}));
+
+server.use(fileUpload({
+  useTempFiles:true
+}))
 // Define your routes using async functions
 async function setupRoutes() {
-  server.use('/imageUploads', express.static('public/images'));
+  // server.use('/imageUploads', express.static('public/images'));
   server.use('/products', productRouter.router);
   server.use('/user', userRouter.router);
   server.use('/about', AboutRouter.router);
   server.use('/home', HomeRouter.router);
   server.use('/appointments', AppointmentRouter.router);
-  server.use('/medical', MedicalRouter.router);
+  server.use('/medical', MedicalRouter.router); 
   server.use('/MapingEcommerce', MapingEcommerceRouter.router);
   server.use('/footer', FooterRouter.router);
   server.use('/enquiry', EnquiryRouter.router);
@@ -77,12 +76,6 @@ async function setupRoutes() {
   server.use('/images', express.static('public/images'));
 }
 
- 
-
- 
-
-
-  
 
 
 // Start the server on port 8080
