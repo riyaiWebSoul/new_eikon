@@ -64,7 +64,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 server.use(cors({
-  origin: ["nwe-eikon.vercel.app"], // Add your actual frontend domain(s)
+  origin: ["http://localhost:8080/"], // Add your actual frontend domain(s)
   methods: ["POST", "GET"],
   credentials: true,
 }));
