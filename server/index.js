@@ -51,18 +51,7 @@ db.once('open', () => {
 });
 
 // Configure Multer for handling file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, 'public', 'images'));
-  },
-  filename: (req, file, cb) => {
-    const timestamp = Date.now();
-    const fileName = `${timestamp}-${file.originalname}`;
-    cb(null, fileName);
-  },
-});
-
-const upload = multer({ storage });
+ 
 server.use(cors({
   origin: ["http://localhost:8080/"], // Add your actual frontend domain(s)
   methods: ["POST", "GET"],
@@ -88,70 +77,12 @@ async function setupRoutes() {
   server.use('/images', express.static('public/images'));
 }
 
-const imageUrls = [];
+ 
 
-server.get('/listImages', (req, res) => {
-  const imageDir = path.join(__dirname, 'public', 'images');
-
-  // Use the 'fs' module to read the contents of the directory
-  fs.readdir(imageDir, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error reading images directory' });
-    }
-
-    // Filter out only image files (you can adjust this filter as needed)
-    const imageFiles = files.filter((file) => {
-      const extname = path.extname(file);
-      return ['.jpg', '.jpeg', '.png', '.gif'].includes(extname.toLowerCase());
-    });
-
-    // Create an array of image URLs
-    const imageUrls = imageFiles.map((file) => `/${file}`);
-
-    res.json({ images: imageUrls });
-  });
-});
+ 
 
 
-  server.post('/imageUpload', upload.single('image'), (req, res) => {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
-    }
-
-  // Get the image name from the uploaded file's filename
-  const imageName = req.file.filename;
-console.log(imageName)
-  // Add the image name to the imageUrls array
-  imageUrls.push(imageName);
-
-  // You can send back the updated imageUrls array as a response
-  res.json({ imageUrl: `/${imageName}` });
-
-  // You can do further processing with the uploaded file here
-  // For now, just send a success response
-  res.send('File uploaded successfully.');
-}
-);
-
-server.delete('/deleteImage/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const imagePath = path.join(__dirname, 'public', 'images', filename);
-
-  // Use the 'fs' module to delete the image file
-  fs.unlink(imagePath, (err) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error deleting image' });
-    }
-
-    // Remove the deleted image URL from your 'imageUrls' array if needed
-    const index = imageUrls.indexOf(`/images/${filename}`);
-    if (index !== -1) {
-      imageUrls.splice(index, 1);
-    }
-
-    res.json({ message: 'Image deleted successfully' });
-  });
-});
+  
 
 
 // Start the server on port 8080
