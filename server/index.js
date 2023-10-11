@@ -53,7 +53,7 @@ db.once('open', () => {
 // Configure Multer for handling file uploads
  
 server.use(cors({
-  origin: ["http://localhost:8080/"], // Add your actual frontend domain(s)
+  origin: ["nwe-eikon.vercel.app"], // Add your actual frontend domain(s)
   methods: ["POST", "GET"],
   credentials: true,
 }));
