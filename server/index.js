@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 8080;
 // Connect to the MongoDB database
 async function connectToDatabase() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/eikon', {
+    await mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/eikon', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -63,7 +63,11 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-
+server.use(cors({
+  origin: ["nwe-eikon.vercel.app"], // Add your actual frontend domain(s)
+  methods: ["POST", "GET"],
+  credentials: true,
+}));
 // Define your routes using async functions
 async function setupRoutes() {
   server.use('/imageUploads', express.static('public/images'));
