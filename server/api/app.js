@@ -48,7 +48,7 @@ const upload = multer({
   }),
 });
 
-mongoose.connect('mongodb+srv://your-mongodb-connection-string', {
+mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -63,7 +63,7 @@ server.use(express.json());
 server.use(morgan('default'));
 server.use(express.static('public'));
 server.use(cors({
-  origin: ["https://deploy-mean-1whq.vercel.app"],
+  origin: ["https://eikon-client.vercel.app/"],
   methods: ["POST", "GET"],
   credentials: true
 }));
