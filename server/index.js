@@ -22,11 +22,12 @@ const DrList = require('./api/routes/drList');
 const LoginIdRouter = require('./api/routes/loginId');
 const ImageUploadRouter = require('./api/routes/imagesUpload');
 const PORT = process.env.PORT || 8080;
+const mongodbURL = process.env.mongodbURL;
 
 // Connect to the MongoDB database
 async function connectToDatabase() {
   try {
-    await mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/eikon', {
+    await mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/test', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

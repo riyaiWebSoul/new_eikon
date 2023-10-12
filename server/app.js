@@ -20,7 +20,7 @@ const ImageUploadRouter = require('./api/routes/imagesUpload');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/test', {
+mongoose.connect(mongodbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
