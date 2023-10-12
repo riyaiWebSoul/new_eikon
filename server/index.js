@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
+ 
 const path = require('path');
 const server = express();
 const fs = require('fs');
