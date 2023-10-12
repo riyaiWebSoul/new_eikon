@@ -21,7 +21,7 @@ const cors = require('cors');
 // const fileUpload = require('express-fileupload');
 
 
-mongoose.connect('mongodb+srv://vercel-admin-user:aIoCd5Ktel5rSNQ2@cluster0.q3ocj1n.mongodb.net/eikon',{useNewUrlParser:true, useUnifiedTopology: true});
+mongoose.connect('mongodb+srv://riyasurena137:fkzWxbSYzkDyN3X9@cluster0.q3ocj1n.mongodb.net/eikon',{useNewUrlParser:true, useUnifiedTopology: true});
 
 
 mongoose.connection.on('error',err=>{
