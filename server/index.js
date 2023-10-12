@@ -52,7 +52,7 @@ server.use(cors());
 
 // const upload = multer({ storage });
 server.use(cors({
-  origin: ["eikon-client.vercel.app"], // Add your actual frontend domain(s)
+  origin: ["nwe-eikon-om4agqzni-riya-surenas-projects.vercel.app"], // Add your actual frontend domain(s)
   methods: ["POST", "GET"],
   credentials: true,
 }));
