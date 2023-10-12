@@ -2,10 +2,10 @@
   "name": "express-api",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "server.js",
-    "dev": "node server.js"
+    "start": "index.js",
+    "dev": "node index.js"
   },
   "repository": {
     "type": "git",
