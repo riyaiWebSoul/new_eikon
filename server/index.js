@@ -12,7 +12,7 @@ const mongodbURL = process.env.MONGODB_URL;
 // Connect to the MongoDB database
 async function connectToDatabase() {
   try {
-    await mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/test', {
+    await mongoose.connect(mongodbURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
