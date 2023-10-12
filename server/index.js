@@ -64,7 +64,7 @@ db.once('open', () => {
 
 // const upload = multer({ storage });
 server.use(cors({
-  origin: ["https://nwe-eikon-riya-surenas-projects.vercel.app/"], // Add your actual frontend domain(s)
+  origin: ["eikon-client.vercel.app"], // Add your actual frontend domain(s)
   methods: ["POST", "GET"],
   credentials: true,
 }));
