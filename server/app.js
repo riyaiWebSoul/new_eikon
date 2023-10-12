@@ -18,8 +18,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { urlencoded, json } = require('body-parser');
 const cors = require('cors');
-
-mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/test', {
+// mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/test
+mongoose.connect('mongodb://localhost:27017', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
