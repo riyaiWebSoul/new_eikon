@@ -2,15 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const multer = require('multer');
 const path = require('path');
-const fs = require('fs');
-const AWS = require('aws-sdk');
+const multer = require('multer');
 
-// Import route modules for various parts of your application
 const HomeRouter = require('./routes/home');
-const ProductRouter = require('./routes/product');
-const UserRouter = require('./routes/user');
+const productRouter = require('./routes/product');
+const userRouter = require('./routes/user');
 const AboutRouter = require('./routes/about');
 const AppointmentRouter = require('./routes/appointment');
 const MedicalRouter = require('./routes/medical');
@@ -24,108 +21,73 @@ const LoginIdRouter = require('./routes/loginId');
 const ImageUploadRouter = require('./routes/imagesUpload');
 
 const PORT = process.env.PORT || 8080;
+
 const server = express();
 
-AWS.config.update({
-  accessKeyId: 'your-access-key-id',
-  secretAccessKey: 'your-secret-access-key',
-  region: 'your-s3-region',
-});
-
-const s3 = new AWS.S3();
-
-const upload = multer({
-  storage: multerS3({
-    s3,
-    bucket: 'your-s3-bucket-name',
-    acl: 'public-read',
-    metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString());
-    },
-  }),
-});
-
-mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-  console.log('Connected to MongoDB');
-});
-
+// Middleware to parse JSON request bodies
 server.use(express.json());
 server.use(morgan('default'));
+
+// Serve static files from the 'public' directory
 server.use(express.static('public'));
+
+// Enable CORS for a specific origin
 server.use(cors({
-  origin: ["https://eikon-client.vercel.app/"],
+  origin: ["https://deploy-mean-1whq.vercel.app"],
   methods: ["POST", "GET"],
-  credentials: true
+  credentials: true,
 }));
 
-// Define your routes using async functions
-server.use('/imageUploads', express.static('public/images'));
-
-// Define routes for various parts of your application
-server.use('/home', HomeRouter);
-server.use('/products', ProductRouter);
-server.use('/user', UserRouter);
-server.use('/about', AboutRouter);
-server.use('/appointments', AppointmentRouter);
-server.use('/medical', MedicalRouter);
-server.use('/MapingEcommerce', MapingEcommerceRouter);
-server.use('/footer', FooterRouter);
-server.use('/enquiry', EnquiryRouter);
-server.use('/healingTouch', HealingTouch);
-server.use('/PatientReview', PatientReview);
-server.use('/drList', DrList);
-server.use('/imageUpload', ImageUploadRouter);
-server.use('/loginId', LoginIdRouter);
-
-server.get('/listImages', (req, res) => {
-  const imageDir = path.join(__dirname, 'public', 'images');
-  fs.readdir(imageDir, (err, files) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error reading images directory' });
-    }
-
-    const imageFiles = files.filter((file) => {
-      const extname = path.extname(file);
-      return ['.jpg', '.jpeg', '.png', '.gif'].includes(extname.toLowerCase());
+// Connect to the MongoDB database
+async function connectToDatabase() {
+  try {
+    await mongoose.connect('mongodb+srv://riyasurena137:R8Emr9gv8LkpVLNg@cluster0.q3ocj1n.mongodb.net/eikon', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
     });
-
-    const imageUrls = imageFiles.map((file) => `/${file}`);
-    res.json({ images: imageUrls });
-  });
-});
-
-server.post('/imageUpload', upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+    console.log('Database connected');
+  } catch (err) {
+    console.error('Error connecting to the database:', err);
   }
+}
 
-  const imageUrl = req.file.location;
-  res.json({ imageUrl });
-  res.send('File uploaded successfully.');
-});
+// Define your routes using async functions
+async function setupRoutes() {
+  // Routes for various endpoints
+  server.use('/products', productRouter.router);
+  server.use('/user', userRouter.router);
+  server.use('/about', AboutRouter.router);
+  server.use('/home', HomeRouter.router);
+  server.use('/appointments', AppointmentRouter.router);
+  server.use('/medical', MedicalRouter.router);
+  server.use('/MapingEcommerce', MapingEcommerceRouter.router);
+  server.use('/footer', FooterRouter.router);
+  server.use('/enquiry', EnquiryRouter.router);
+  server.use('/healingTouch', HealingTouch.router);
+  server.use('/PatientReview', PatientReview.router);
+  server.use('/drList', DrList.router);
+  server.use('/imageUpload', ImageUploadRouter.router);
+  server.use('/loginId', LoginIdRouter.router);
 
-server.delete('/deleteImage/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const imagePath = path.join(__dirname, 'public', 'images', filename);
-  fs.unlink(imagePath, (err) => {
-    if (err) {
-      return res.status(500).json({ error: 'Error deleting image' });
+  // Add a route to fetch data from MongoDB
+  server.get('/', async (req, res) => {
+    try {
+      const db = await connectToDatabase(); // Connect to the database
+      const collection = db.collection('eikon'); // Replace with your collection name
+
+      // Query MongoDB to retrieve data (modify this query as needed)
+      const data = await collection.find({}).toArray();
+
+      // Send the retrieved data as a JSON response
+      res.json({ data });
+    } catch (err) {
+      console.error('Error fetching data from MongoDB:', err);
+      res.status(500).json({ error: 'Error fetching data from MongoDB' });
     }
-
-    res.json({ message: 'Image deleted successfully' });
   });
-});
+}
 
+// Start the server
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
