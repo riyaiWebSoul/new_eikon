@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Home from './Component/Pages.js/Home'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import Service from './Component/Pages.js/ServiceMedical'
+// import Service from './Component/Pages.js/ServiceMedical'
 import Contact from './Component/Pages.js/Contact'
 import About from './Component/Pages.js/About'
 import ThankYou from './Component/Pages.js/ThankYou'

@@ -1,42 +1,11 @@
 const express = require('express');
 const app = express();
-const { urlencoded, json } = require('body-parser');
-
-const mongoose = require('mongoose');
-const HomeRouter = require('./api/routes/home');
-const productRouter = require('./api/routes/product');
-const userRouter = require('./api/routes/user');
-const AboutRouter = require('./api/routes/about');
-const AppointmentRouter = require('./api/routes/appointment');
-const MedicalRouter = require('./api/routes/medical');
-const MapingEcommerceRouter = require('./api/routes/MapingEcommerce');
-const FooterRouter = require('./api/routes/footer');
-const EnquiryRouter = require('./api/routes/enquiry');
-const HealingTouch = require('./api/routes/healingTouch');
-const PatientReview = require('./api/routes/PatientReview');
-const DrList = require('./api/routes/drList');
-const LoginIdRouter = require('./api/routes/loginId');
-const ImageUploadRouter = require('./api/routes/imagesUpload');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-mongoose.connect(mongodbURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// ... Other imports and configurations ...
 
-mongoose.connection.on('error', err => {
-  console.log('connection failed');
-});
-
-mongoose.connection.on('connected', () => {
-  console.log('connected successfully with the database');
-});
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
-
+// Your routes and other middleware here
 app.use('/imageUploads', express.static('public/images'));
 app.use('/products', productRouter.router);
 app.use('/user', userRouter.router);
@@ -71,4 +40,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-module.exports = app;
+if (process.env.NOW_REGION) {
+  // Export the app as the handler for the serverless function
+  module.exports = app;
+} else {
+  // Start the local development server if not running as a serverless function
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
+  });
+}
