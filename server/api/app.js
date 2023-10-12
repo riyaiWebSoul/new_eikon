@@ -38,18 +38,20 @@ server.use(cors({
   credentials: true,
 }));
 
-// Connect to the MongoDB database
 async function connectToDatabase() {
-  try {
-    await mongoose.connect('mongodb+srv://riyasurena137:R8Emr9gv8LkpVLNg@cluster0.q3ocj1n.mongodb.net/eikon', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('Database connected');
-  } catch (err) {
-    console.error('Error connecting to the database:', err);
+    try {
+      await mongoose.connect('mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/eikon', {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log('Database connected');
+  
+      // Call the setupRoutes function to register your routes
+      setupRoutes();
+    } catch (err) {
+      console.error('Error connecting to the database:', err);
+    }
   }
-}
 
 // Define your routes using async functions
 async function setupRoutes() {
@@ -86,7 +88,8 @@ async function setupRoutes() {
     }
   });
 }
-
+setupRoutes();
+connectToDatabase()
 // Start the server
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
