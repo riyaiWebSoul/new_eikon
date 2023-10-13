@@ -1,12 +1,10 @@
 {
-  "name": "my-express-app",
-  "routes": [
-    {
-      "src": "/api/index",
-      "dest": "/api/index.js"
-    }
+  "version": 2,
+  "name": "eikon",
+  "builds": [
+     { "src": "index.js", "use": "@vercel/node" }
   ],
-  "env": {
-    "MY_CUSTOM_ENV_VAR": "my-value"
-  }
+  "routes": [
+     { "src": "/(.*)", "dest": "/app.js" }
+  ]
 }
