@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     const mapingecommerces = db.collection('mapingecommerces'); // Replace with your collection name
     const medicals = db.collection('medicals');
     const homes = db.collection('homes');
-    const images = db.collection('images');
+  
     const healingtouches = db.collection('healingtouches');
     const patientreviews = db.collection('patientreviews');
 
@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     const mapingecommercesData = await mapingecommerces.find({}).toArray();
     const medicalsData = await medicals.find({}).toArray();
     const homesData = await homes.find({}).toArray();
-    const imagesData = await images.find({}).toArray();
+   
     const healingtouchesData = await healingtouches.find({}).toArray();
     const patientreviewsData = await patientreviews.find({}).toArray();
 
@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
       mapingecommercesData,
       medicalsData,
       homesData,
-      imagesData,
+     
       healingtouchesData,
       patientreviewsData
     });
