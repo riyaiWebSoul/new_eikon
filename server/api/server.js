@@ -1,5 +1,5 @@
 
-const app=require('./app')
+const app=require('../api/app')
 
   module.exports = async (req, res) => {
     // This is your serverless function handler
@@ -17,10 +17,10 @@ const app=require('./app')
     }
   
     // Pass the request and response objects to your Express app
-    app(req, res);
+   
   };
     
-
+  app(req, res);
 
   module.exports = async (req, res) => {
     try {
