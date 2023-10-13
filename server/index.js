@@ -22,12 +22,30 @@ module.exports = async (req, res) => {
     const about = db.collection('abouts');
     const appointments = db.collection('appointments');
     const mapingecommerces = db.collection('mapingecommerces'); // Replace with your collection name
+    const medicals = db.collection('medicals');
+    const homes = db.collection('homes');
+    const images = db.collection('images');
+    const healingtouches = db.collection('healingtouches');
+    const patientreviews = db.collection('patientreviews');
+
+
+
 
     // Retrieve data from each collection
     const collectionData = await collection.find({}).toArray();
     const aboutData = await about.find({}).toArray();
     const appointmentsData = await appointments.find({}).toArray();
     const mapingecommercesData = await mapingecommerces.find({}).toArray();
+    const medicalsData = await medicals.find({}).toArray();
+    const homesData = await homes.find({}).toArray();
+    const imagesData = await images.find({}).toArray();
+    const healingtouchesData = await healingtouches.find({}).toArray();
+    const patientreviewsData = await patientreviews.find({}).toArray();
+
+
+
+
+
 
     // Close the connection
     client.close();
@@ -37,7 +55,7 @@ module.exports = async (req, res) => {
       collectionData,
       aboutData,
       appointmentsData,
-      mapingecommercesData,
+      mapingecommercesData,medicalsData,homesData,imagesData,healingtouchesData,patientreviewsData
     });
   } catch (error) {
     console.error("Function error:", error);
