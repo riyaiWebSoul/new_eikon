@@ -1,13 +1,5 @@
- 
-module.exports = async (req, res) => {
-    const message = "Hello from a Vercel Serverless Function!";
-    res.status(200).json({ message });
-  };
-  
 
-
-
-
+const app=require('./app')
 
   module.exports = async (req, res) => {
     // This is your serverless function handler
@@ -28,3 +20,15 @@ module.exports = async (req, res) => {
     app(req, res);
   };
     
+
+
+  module.exports = async (req, res) => {
+    try {
+      const message = "Hello shravan aaj server chal jayega ";
+      res.status(200).json({ message });
+    } catch (error) {
+      console.error("Function error:", error);
+      res.status(500).json({ error: "Server error" });
+    }
+  };
+  
