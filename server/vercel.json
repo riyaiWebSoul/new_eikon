@@ -2,7 +2,7 @@
   "name": "my-express-app",
   "routes": [
     {
-      "src": "/api/index.js",
+      "src": "/api/index",
       "dest": "/api/index.js"
     }
   ],
