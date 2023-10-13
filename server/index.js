@@ -10,5 +10,5 @@ module.exports = async (req, res) => {
     console.error("Function error:", error);
     res.status(500).json({ error: "Server error" });
   }
-  app(req, res);
+ 
 };
