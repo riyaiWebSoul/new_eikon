@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     client.close();
 
     // Send the retrieved data as a response
-    res.status(200).json({ data },{aboutdata});
+    res.status(200).json({data,aboutdata});
   } catch (error) {
     console.error("Function error:", error);
     res.status(500).json({ error: "Server error" });
