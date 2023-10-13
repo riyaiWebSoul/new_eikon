@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const dbName = 'eikon'; // Replace with your database name
 
     // Create a new MongoClient
-    const client = new MongoClient(url, { useNewUrlParser: true });
+    const client = new MongoClient(url);
 
     // Connect to the server
     await client.connect();
