@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     const db = client.db(dbName);
 
     // Perform database operations here, e.g., retrieve data
-    const collection = db.collection(['footers','abouts','drlists']); // Replace with your collection name
+    const collection = db.collection('footers','abouts','drlists'); // Replace with your collection name
     const data = await collection.find({}).toArray(); // Retrieve all documents
 
     // Close the connection
