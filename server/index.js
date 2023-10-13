@@ -28,9 +28,6 @@ module.exports = async (req, res) => {
     const healingtouches = db.collection('healingtouches');
     const patientreviews = db.collection('patientreviews');
 
-
-
-
     // Retrieve data from each collection
     const collectionData = await collection.find({}).toArray();
     const aboutData = await about.find({}).toArray();
@@ -42,20 +39,20 @@ module.exports = async (req, res) => {
     const healingtouchesData = await healingtouches.find({}).toArray();
     const patientreviewsData = await patientreviews.find({}).toArray();
 
-
-
-
-
-
     // Close the connection
-    client.close();
+    await client.close();
 
     // Send the retrieved data as a response
     res.status(200).json({
       collectionData,
       aboutData,
       appointmentsData,
-      mapingecommercesData,medicalsData,homesData,imagesData,healingtouchesData,patientreviewsData
+      mapingecommercesData,
+      medicalsData,
+      homesData,
+      imagesData,
+      healingtouchesData,
+      patientreviewsData
     });
   } catch (error) {
     console.error("Function error:", error);
