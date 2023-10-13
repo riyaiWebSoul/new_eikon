@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   // It uses the Express app for handling HTTP requests
 
   // Implement any necessary CORS headers here if needed
-  res.setHeader('https://eikon-client.vercel.app/', 'https://nwe-eikon.vercel.app'); // Replace with your desired origin
+  res.setHeader('Access-Control-Allow-Origin', 'https://nwe-eikon.vercel.app'); // Replace with your desired origin
 
   if (req.method === 'OPTIONS') {
     // Handle preflight requests
