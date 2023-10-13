@@ -33,7 +33,7 @@ server.use(express.static('public'));
 
 // Enable CORS for a specific origin
 server.use(cors({
-  origin: ["https://deploy-mean-1whq.vercel.app"],
+  origin: ["https://eikon-client.vercel.app/"],
   methods: ["POST", "GET"],
   credentials: true,
 }));
