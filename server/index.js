@@ -18,14 +18,18 @@ module.exports = async (req, res) => {
     const db = client.db(dbName);
 
     // Perform database operations here, e.g., retrieve data
-    const collection = db.collection('footers'); // Replace with your collection name
-    const data = await collection.find({}).toArray(); // Retrieve all documents
+    const collection = db.collection('footers');
+    const about = db.collection('abouts'); // Replace with your collection name
+     // Replace with your collection name
+    const data = await collection.find({}).toArray()
+    const aboutdata = await about.find({}).toArray(); // Retrieve all documents
+    ; // Retrieve all documents
 
     // Close the connection
     client.close();
 
     // Send the retrieved data as a response
-    res.status(200).json({ data });
+    res.status(200).json({ data },{aboutdata});
   } catch (error) {
     console.error("Function error:", error);
     res.status(500).json({ error: "Server error" });
