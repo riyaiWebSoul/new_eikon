@@ -1,5 +1,5 @@
 
-const app=require('../api/app')
+const app=require('./app')
 
   module.exports = async (req, res) => {
     // This is your serverless function handler
@@ -20,7 +20,7 @@ const app=require('../api/app')
    
   };
     
-  app(req, res);
+  app();
 
   module.exports = async (req, res) => {
     try {

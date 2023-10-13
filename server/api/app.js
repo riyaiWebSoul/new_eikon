@@ -22,17 +22,17 @@ const ImageUploadRouter = require('./routes/imagesUpload');
 
 const PORT = process.env.PORT || 8080;
 
-const server = express();
+const app = express();
 
 // Middleware to parse JSON request bodies
-server.use(express.json());
-server.use(morgan('default'));
+app.use(express.json());
+app.use(morgan('default'));
 
 // Serve static files from the 'public' directory
-server.use(express.static('public'));
+app.use(express.static('public'));
 
 // Enable CORS for a specific origin
-server.use(cors({
+app.use(cors({
   origin: ["https://eikon-client.vercel.app/"],
   methods: ["POST", "GET"],
   credentials: true,
@@ -56,23 +56,23 @@ async function connectToDatabase() {
 // Define your routes using async functions
 async function setupRoutes() {
   // Routes for various endpoints
-  server.use('/products', productRouter.router);
-  server.use('/user', userRouter.router);
-  server.use('/about', AboutRouter.router);
-  server.use('/home', HomeRouter.router);
-  server.use('/appointments', AppointmentRouter.router);
-  server.use('/medical', MedicalRouter.router);
-  server.use('/MapingEcommerce', MapingEcommerceRouter.router);
-  server.use('/footer', FooterRouter.router);
-  server.use('/enquiry', EnquiryRouter.router);
-  server.use('/healingTouch', HealingTouch.router);
-  server.use('/PatientReview', PatientReview.router);
-  server.use('/drList', DrList.router);
-  server.use('/imageUpload', ImageUploadRouter.router);
-  server.use('/loginId', LoginIdRouter.router);
+  app.use('/products', productRouter.router);
+  app.use('/user', userRouter.router);
+  app.use('/about', AboutRouter.router);
+  app.use('/home', HomeRouter.router);
+  app.use('/appointments', AppointmentRouter.router);
+  app.use('/medical', MedicalRouter.router);
+  app.use('/MapingEcommerce', MapingEcommerceRouter.router);
+  app.use('/footer', FooterRouter.router);
+  app.use('/enquiry', EnquiryRouter.router);
+  app.use('/healingTouch', HealingTouch.router);
+  app.use('/PatientReview', PatientReview.router);
+  app.use('/drList', DrList.router);
+  app.use('/imageUpload', ImageUploadRouter.router);
+  app.use('/loginId', LoginIdRouter.router);
 
   // Add a route to fetch data from MongoDB
-  server.get('/', async (req, res) => {
+  app.get('/', async (req, res) => {
     try {
       const db = await connectToDatabase(); // Connect to the database
       const collection = db.collection('eikon'); // Replace with your collection name
@@ -90,9 +90,9 @@ async function setupRoutes() {
 }
 setupRoutes();
 connectToDatabase()
-// Start the server
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+// Start the app
+app.listen(PORT, () => {
+  console.log(`app is running on port ${PORT}`);
 });
 
-module.exports = server;
+module.exports = app;
