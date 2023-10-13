@@ -2,9 +2,9 @@
   "version": 2,
   "name": "eikon",
   "builds": [
-     { "src": "app.js", "use": "@vercel/node" }
+     { "src": "./api/app.js", "use": "@vercel/node" }
   ],
   "routes": [
-     { "src": "/(.*)", "dest": "/app.js" }
+     { "src": "/(.*)", "dest": "./api/app.js" }
   ]
 }
