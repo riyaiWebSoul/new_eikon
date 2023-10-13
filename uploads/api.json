@@ -1,0 +1,170 @@
+{
+  "collectionData": [
+    {
+      "_id": "6516a3de9043681689488233",
+      "rightSection": {
+        "title": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses."
+      },
+      "section": {
+        "email": "hemant.borse@eikonimaging.ai",
+        "phone": "9654370277",
+        "Address": "504, 5-B, Manasarovar Complex Sector-34, Kamothe Navi Mumbai-410209"
+      },
+      "MidSection": {
+        "title": "Important Link",
+        "details": [
+          "Home",
+          "About Us",
+          "Medical",
+          "Maping ecommerce",
+          "Contact Us"
+        ]
+      },
+      "__v": 0
+    }
+  ],
+  "aboutData": [
+    {
+      "_id": "65167a7585c32c09813f3561",
+      "title": "About Us",
+      "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers.",
+      "SubTile": "WelCome to Eikon",
+      "descriptionSub0": "We at Eikon provide our services to different industries like Healthcare, NDT, Home Security to name a few.",
+      "descriptionSub1": "Our product IDEATOR, is an AI enabled system and software solution. It has been successfully installed and performing well in hospitals and at OEMs in India. Our product is mainly used by endo-spine surgeons, urologists, orthopedics, neurologists, and radiologists. IDEATOR's main USP is the best image quality at lower X-ray Dose and seamless UI/UX.",
+      "descriptionSub2": "Eikon provides a complete, customized E2E product development from ideation to realization. Our expertise in product development use state-of-the-art AI/ML solutions to address the exact pain points and requirements from end-users & market.",
+      "descriptionSub3": "Once associated, Eikon assures the quality products and timely services.",
+      "__v": 0
+    }
+  ],
+  "appointmentsData": [
+    {
+      "_id": "6523b6ea3a74d2ef0d615e39",
+      "name": "demo3",
+      "email": "eikon@123",
+      "phone": "123456",
+      "comments": "ad",
+      "time": "13:50",
+      "date": "2023-10-18",
+      "gender": "Male",
+      "__v": 0
+    }
+  ],
+  "mapingecommercesData": [
+    {
+      "_id": "650d7d0f12bb6287eb8740b1",
+      "MapingEcommerce": {
+        "title": " Maping ecommerce",
+        "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers.",
+        "section1": { "title": "Subscribe to our Newsletter" },
+        "section2": {
+          "description1": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses.This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses",
+          "description2": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses.This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses."
+        }
+      },
+      "__v": 0
+    }
+  ],
+  "medicalsData": [
+    {
+      "_id": "650d8a004a0a2ffd8152e4d3",
+      "MedicalPage": {
+        "title": "Medical Services",
+        "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers.",
+        "section1": { "title": "Subscribe to our Newsletter" },
+        "section2": {
+          "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers.",
+          "subDescription": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers."
+        }
+      },
+      "__v": 0
+    }
+  ],
+  "homesData": [
+    {
+      "_id": "650d4595f2c62afdc75b54ba",
+      "section": {
+        "imageSrc": ["/1(7).jpg"],
+        "title": "Eikon Imaging ",
+        "heading": "Revolutionizing Business with AI: Eikon's Transformative Journey",
+        "description": "We aim to make global healthcare products and services more human-technology efficient and connected; to better address patient & care seeker needs, optimize costs & build value for all stakeholders."
+      },
+      "__v": 0
+    }
+  ],
+  "healingtouchesData": [
+    {
+      "_id": "6512680bf1696448ae389b12",
+      "title": "A Healing Touch to Heal  you Completely.",
+      "card": [
+        {
+          "title": "Happy Patients",
+          "count": "512",
+          "_id": "6512758cf1696448ae389f86"
+        },
+        {
+          "title": "Hospital Room",
+          "count": "19",
+          "_id": "6512758cf1696448ae389f87"
+        },
+        {
+          "title": "Qualified Doctor",
+          "count": "29",
+          "_id": "6512758cf1696448ae389f88"
+        },
+        {
+          "title": "Positive Feedback",
+          "count": "59",
+          "_id": "6512758cf1696448ae389f89"
+        }
+      ],
+      "__v": 0
+    }
+  ],
+  "patientreviewsData": [
+    {
+      "_id": "65127ff99ff116e15901d5ff",
+      "testimonial": {
+        "title": "What Our Patients Say",
+        "description": "4.8 Overall Rating, Based on 2500+ Reviews."
+      },
+      "userReview": [
+        {
+          "Name": "Rajesh Yadav",
+          "Patient": " Dental Patient",
+          "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses. It mimics the look of real text quite well as design and set up page layouts.",
+          "image": "/auther-img.png",
+          "_id": "6516cbc390436816894889e8"
+        },
+        {
+          "Name": "Rajesh YADAV",
+          "Patient": "Dental Patient",
+          "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses. It mimics the look of real text quite well as design and set up page layouts.",
+          "image": "/auther-img.png",
+          "_id": "65127ff99ff116e15901d601"
+        },
+        {
+          "Name": "Rajesh Patel",
+          "Patient": "Dental Patient",
+          "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses. It mimics the look of real text quite well as design and set up page layouts.",
+          "image": "/auther-img.png",
+          "_id": "65127ff99ff116e15901d602"
+        },
+        {
+          "Name": "Rajesh Patel",
+          "Patient": "Dental Patient",
+          "description": "This is a sample of dummy copy text often used to show page layout and design as sample layout text by Graphic designers, Web designers, People creating templates, and many other uses. It mimics the look of real text quite well as design and set up page layouts.",
+          "image": "/auther-img.png",
+          "_id": "65127ff99ff116e15901d603"
+        },
+        {
+          "Name": "demo one",
+          "Patient": "deom",
+          "description": "dsoihin uh uigh iuuhgiudfshg iudhgiu gbiudfbjhkgdiufh iuhguihgui hgduh ",
+          "image": "/auther-img.png",
+          "_id": "651bc1fec34ecab8a95a6e89"
+        }
+      ],
+      "__v": 0
+    }
+  ]
+}
