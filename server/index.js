@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     // Extract the request path
     const { path } = req;
 
-    if (path === 'https://nwe-eikon.vercel.app/') {
+    if (path === '/') {
       // Handle the root path
       // Connection URL
       const url = 'mongodb+srv://iwebsoul:ZkK7vXCmICDXqsM6@cluster0.meodf1o.mongodb.net/';
