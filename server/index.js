@@ -13,23 +13,32 @@ module.exports = async (req, res) => {
 
     // Connect to the server
     await client.connect();
-    
+
     // Select a specific database
     const db = client.db(dbName);
 
-    // Perform database operations here, e.g., retrieve data
+    // Define the collections
     const collection = db.collection('footers');
-    const about = db.collection('abouts'); // Replace with your collection name
-     // Replace with your collection name
-    const data = await collection.find({}).toArray()
-    const aboutdata = await about.find({}).toArray(); // Retrieve all documents
-    ; // Retrieve all documents
+    const about = db.collection('abouts');
+    const appointments = db.collection('appointments');
+    const mapingecommerces = db.collection('mapingecommerces'); // Replace with your collection name
+
+    // Retrieve data from each collection
+    const collectionData = await collection.find({}).toArray();
+    const aboutData = await about.find({}).toArray();
+    const appointmentsData = await appointments.find({}).toArray();
+    const mapingecommercesData = await mapingecommerces.find({}).toArray();
 
     // Close the connection
     client.close();
 
     // Send the retrieved data as a response
-    res.status(200).json({data,aboutdata});
+    res.status(200).json({
+      collectionData,
+      aboutData,
+      appointmentsData,
+      mapingecommercesData,
+    });
   } catch (error) {
     console.error("Function error:", error);
     res.status(500).json({ error: "Server error" });
