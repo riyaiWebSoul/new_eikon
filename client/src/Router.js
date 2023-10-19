@@ -13,7 +13,7 @@ import View from './Component/Pages.js/View'
 // import BackEndRouter from './Component/BackEnd/BackEndRouter'
 import Header from './Component/Header'
 import Footer from './Component/Footer'
-import NotFoundPage from './Component/BackEnd/NotFound'
+ 
 
 export default function Router() {
   const history = useNavigate();
@@ -37,7 +37,7 @@ export default function Router() {
                         <Route path='/thank' element={<ThankYou/>} />
                         <Route path='/success' element={<AppoinmentSuccess/>} />
                         <Route path='/view' element={<View/>} />   
-                        <Route path='*' element={<NotFoundPage/>}/>            
+                                   
                         {/* <Route path='/backHome' element={  <BackEndRouter/>}/>                    */}
         </Routes>
 <Footer/>
