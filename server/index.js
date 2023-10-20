@@ -16,6 +16,7 @@ const MedicalRouter = require('./api/routes/medical');
 const MapingEcommerceRouter = require('./api/routes/MapingEcommerce');
 const FooterRouter = require('./api/routes/footer');
 const EnquiryRouter = require('./api/routes/enquiry');
+const ContactRouter = require('./api/routes/contact');
 const HealingTouch = require('./api/routes/healingTouch');
 const PatientReview = require('./api/routes/PatientReview');
 const DrList = require('./api/routes/drList');
@@ -76,6 +77,7 @@ async function setupRoutes() {
   server.use('/MapingEcommerce', MapingEcommerceRouter.router);
   server.use('/footer', FooterRouter.router);
   server.use('/enquiry', EnquiryRouter.router);
+  server.use('/contact', ContactRouter.router);
   server.use('/healingTouch', HealingTouch.router);
   server.use('/PatientReview', PatientReview.router);
   server.use('/drList', DrList.router);
@@ -88,19 +90,16 @@ const imageUrls = [];
 
 server.get('/listImages', (req, res) => {
   const imageDir = path.join(__dirname, 'public', 'images');
-
   // Use the 'fs' module to read the contents of the directory
   fs.readdir(imageDir, (err, files) => {
     if (err) {
       return res.status(500).json({ error: 'Error reading images directory' });
     }
-
     // Filter out only image files (you can adjust this filter as needed)
     const imageFiles = files.filter((file) => {
       const extname = path.extname(file);
       return ['.jpg', '.jpeg', '.png', '.gif'].includes(extname.toLowerCase());
     });
-
     // Create an array of image URLs
     const imageUrls = imageFiles.map((file) => `/${file}`);
 
@@ -113,23 +112,20 @@ server.get('/listImages', (req, res) => {
     if (!req.file) {
       return res.status(400).send('No file uploaded.');
     }
-
   // Get the image name from the uploaded file's filename
   const imageName = req.file.filename;
 console.log(imageName)
   // Add the image name to the imageUrls array
   imageUrls.push(imageName);
-
   // You can send back the updated imageUrls array as a response
   res.json({ imageUrl: `/${imageName}` });
-
   // You can do further processing with the uploaded file here
   // For now, just send a success response
   res.send('File uploaded successfully.');
 }
 );
 
-server.delete('/deleteImage/:filename', (req, res) => {
+server.delete('/deleteImage/', (req, res) => {
   const filename = req.params.filename;
   const imagePath = path.join(__dirname, 'public', 'images', filename);
 
