@@ -27,7 +27,7 @@ function BackAbout() {
 
   const handleGet = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/about/65167a7585c32c09813f3561`); // Include the ID in the URL
+      const response = await axios.get(`https://eikon-api.onrender.com/about/65167a7585c32c09813f3561`); // Include the ID in the URL
       const data = response.data;
       setResponseData(data);
       setTitle(data.title); // Set the title in the input field
@@ -56,7 +56,7 @@ const  openConfirmationModal=async()=>{
   setShowConfirmationModal(true);}
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8080/about/65167a7585c32c09813f3561`, {
+      const response = await axios.patch(`https://eikon-api.onrender.com/about/65167a7585c32c09813f3561`, {
         title: title,
         description: description,
         SubTile:SubTile,

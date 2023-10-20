@@ -26,7 +26,7 @@ function BackServiceMapingEcommerce() {
 
   const handleGet = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/mapingEcommerce/650d7d0f12bb6287eb8740b1`); // Include the ID in the URL
+      const response = await axios.get(`https://eikon-api.onrender.com/mapingEcommerce/650d7d0f12bb6287eb8740b1`); // Include the ID in the URL
       const data = response.data;
       setResponseData(data);
       setTitle(data.MapingEcommerce.title); // Set the title in the input field
@@ -56,7 +56,7 @@ function BackServiceMapingEcommerce() {
   };
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8080/mapingEcommerce/650d7d0f12bb6287eb8740b1`, {
+      const response = await axios.patch(`https://eikon-api.onrender.com/mapingEcommerce/650d7d0f12bb6287eb8740b1`, {
         MapingEcommerce: {
           title:title,
           description:description,

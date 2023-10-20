@@ -24,7 +24,7 @@ function BackAppointmentSuccess() {
 
   const handleGet = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/appointments`);
+      const response = await axios.get(`https://eikon-api.onrender.com/appointments`);
       const data = response.data;
       setResponseData(data);
     } catch (error) {
@@ -42,7 +42,7 @@ function BackAppointmentSuccess() {
       const checkIdString = checkId.toString();
       console.log(checkIdString);
   
-      const response = await axios.delete(`http://localhost:8080/appointments/${checkIdString}`);
+      const response = await axios.delete(`https://eikon-api.onrender.com/appointments/${checkIdString}`);
   
       if (response.status === 200) {
         // Remove the deleted item from updatedData

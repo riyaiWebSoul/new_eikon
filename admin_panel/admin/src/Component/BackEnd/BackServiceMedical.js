@@ -40,7 +40,7 @@ function BackServiceMedical() {
   };
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8080/medical/650d8a004a0a2ffd8152e4d3`, {
+      const response = await axios.patch(`https://eikon-api.onrender.com/medical/650d8a004a0a2ffd8152e4d3`, {
         MedicalPage: {
           title:title,
           description:description,

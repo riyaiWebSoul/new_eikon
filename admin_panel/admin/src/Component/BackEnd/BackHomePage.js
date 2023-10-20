@@ -131,7 +131,7 @@ const handleUploadImages=async()=>{
     const formData = new FormData();
     formData.append('image', file);
 
-    axios.post('http://localhost:8080/imageUpload', formData, {
+    axios.post('https://eikon-api.onrender.com/imageUpload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -153,7 +153,7 @@ const handleUploadImages=async()=>{
       }
   
       // Make a DELETE request to delete the selected image
-      await axios.delete(`http://localhost:8080/imageUploads/${selectedImageName}`);
+      await axios.delete(`https://eikon-api.onrender.com/imageUploads/${selectedImageName}`);
   
       // Update the image list state by removing the deleted image
       setImageList((prevImageList) =>

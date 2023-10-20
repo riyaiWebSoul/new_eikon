@@ -25,7 +25,7 @@ function BackContact() {
 
   const handleGet = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/footer/${id}`); // Include the ID in the URL
+      const response = await axios.get(`https://eikon-api.onrender.com/footer/${id}`); // Include the ID in the URL
       const data = response.data;
       setResponseData(data);
       setTitle(data.title); // Set the title in the input field
@@ -51,7 +51,7 @@ function BackContact() {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8080/about/${id}`, {
+      const response = await axios.patch(`https://eikon-api.onrender.com/about/${id}`, {
         title: title,
         description: description,
         DrTeamList: drTeamList, // Include any other fields you want to update

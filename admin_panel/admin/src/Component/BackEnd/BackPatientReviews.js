@@ -160,7 +160,7 @@ function BackPatientReviews() {
     const formData = new FormData();
     formData.append('image', file);
 
-    axios.post('http://localhost:8080/imageUpload', formData, {
+    axios.post('https://eikon-api.onrender.com/imageUpload', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

@@ -39,7 +39,7 @@ function BackFooter() {
   const handleUpdate = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:8080/footer/6516a3de9043681689488233`,
+        `https://eikon-api.onrender.com/footer/6516a3de9043681689488233`,
         {
           rightSection: {
             title: title,

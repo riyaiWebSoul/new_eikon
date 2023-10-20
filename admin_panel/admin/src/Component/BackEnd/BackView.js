@@ -27,7 +27,7 @@ function BackView() {
 
   const handleGet = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/enquiry`);
+      const response = await axios.get(`https://eikon-api.onrender.com/enquiry`);
       const data = response.data;
       setResponseData(data);
     } catch (error) {
@@ -45,7 +45,7 @@ function BackView() {
       const checkIdString = checkId.toString();
       console.log(checkIdString);
   
-      const response = await axios.delete(`http://localhost:8080/enquiry/${checkIdString}`);
+      const response = await axios.delete(`https://eikon-api.onrender.com/enquiry/${checkIdString}`);
   
       if (response.status === 200) {
         // Remove the deleted item from updatedData
